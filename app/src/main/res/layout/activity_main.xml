@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notes"
+        android:textColor="@color/white"
+        android:layout_margin="@dimen/dp_10"
+        android:textSize="@dimen/sp_24"
+        android:fontFamily="@font/sen_bold"
+        />
+
+
+    <TextView
+        android:id="@+id/emptyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notes list is Empty"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/sp_30"
+        android:fontFamily="@font/sen_bold"
+        />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvNotesList"
+        android:layout_below="@+id/textNotes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dp_10" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/flAddNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/dp_20"
+        android:backgroundTint="@color/yellowish_orange"
+        android:src="@drawable/ic_add_black_24dp" />
+
+
+</RelativeLayout>

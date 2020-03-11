@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFF</color>
+    <color name="colorPrimaryDark">#FFFF</color>
+    <color name="colorAccent">#D81B60</color>
+
+    //color used in application
+    <color name="background">#E6252525</color>
+    <color name="white">#FFFF</color>
+    <color name="off_white">#CECCCC</color>
+    <color name="transparent">#00CECCCC</color>
+    <color name="transparent_black">#B23D3D3D</color>
+    <color name="front_notes_background">#E6464646</color>
+
+    <color name="yellowish_orange">#f5971f</color>
+    <color name="cloudy_blue">#babdc0</color>
+    <color name="cloud_blue">#edf0f2</color>
+    <color name="fb_bg">#2f4c87</color>
+    <color name="grass_59ac27">#C159AC27</color>
+    <color name="dark_blue">#172233</color>
+    <color name="white_90_opacity">#E6FFFFFF</color>
+    <color name="dark_indigo">#0a0b2c</color>
+    <color name="tomato_red">#e63100</color>
+    <color name="icon_bg_color">#4df5971f</color>
+    <color name="white_50_opacity">#8FFF</color>
+    <color name="white_f8f8">#f8f8f8</color>
+    <color name="blood_orange">#f75110</color>
+    <color name="yellow_orange">#f5971f</color>
+    <color name="black_80_opacity">#80000000</color>
+
+    <color name="texttt">#35353a</color>
+    <color name="dark_blue_1689fc">#1689fc</color>
+    <color name="slate_7a7f8e">#7a7f8e</color>
+    <color name="of_white_f7f7f7">#f7f7f7</color>
+    <color name="line_9893b0">#989eb0</color>
+    <color name="slate_42495e">#42495e</color>
+    <color name="light_pink">#bdbdbd</color>
+    <color name="gray_ccdof7">#CCD0F7</color>
+    <color name="gray_e9e9e9">#e9e9e9</color>
+    <color name="gray_9a9da2">#9a9da2</color>
+
+</resources>

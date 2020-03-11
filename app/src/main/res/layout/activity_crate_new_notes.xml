@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".CrateNewNotes">
+
+
+    <RelativeLayout
+        android:id="@+id/rlHead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_14"
+        android:padding="@dimen/dp_6">
+
+
+        <ImageView
+            android:id="@+id/ivBackPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_8"
+            android:src="@drawable/ic_back_page" />
+
+        <ImageView
+            android:id="@+id/ivSubmitNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/dp_8"
+            android:src="@drawable/ic_check_white" />
+
+        <ImageView
+            android:id="@+id/ivPinNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/ivSubmitNote"
+            android:layout_toLeftOf="@+id/ivSubmitNote"
+            android:padding="@dimen/dp_8"
+            android:src="@drawable/ic_pushpin_white" />
+
+        <ImageView
+            android:id="@+id/ivLockNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/ivPinNote"
+            android:layout_toLeftOf="@+id/ivPinNote"
+            android:padding="@dimen/dp_8"
+            android:src="@drawable/ic_un_lock" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlHead"
+        android:layout_margin="@dimen/dp_10">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.25dp"
+            android:background="@color/off_white" />
+
+        <EditText
+            android:id="@+id/edNotesTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:fontFamily="@font/sen_bold"
+            android:hint="@string/title"
+            android:maxLength="30"
+            android:maxLines="2"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/white"
+            android:textColorHint="@color/slate_7a7f8e"
+            android:textSize="@dimen/sp_30" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.25dp"
+            android:layout_below="@+id/edNotesTitle"
+            android:background="@color/off_white" />
+
+        <EditText
+            android:id="@+id/edNotesDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:layout_marginTop="@dimen/dp_6"
+            android:background="@color/transparent"
+            android:fontFamily="@font/sen_regular"
+            android:hint="@string/Content"
+            android:padding="@dimen/dp_10"
+            android:textColor="@color/white"
+            android:textColorHint="@color/slate_7a7f8e"
+            android:textSize="@dimen/sp_20" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

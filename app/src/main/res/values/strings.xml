@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SecureNotepad</string>
+    <string name="title">Title</string>
+    <string name="Content">content</string>
+    <string name="notes">Notes</string>
+    <string name="make_your_note_secure_by_adding_the_password_crate_a_password">Make your note secure by adding the password. Crate a password</string>
+</resources>
