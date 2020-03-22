@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.RealmResults
+import kotlinx.android.synthetic.main.item_notes_view.view.*
 
-class NotesAdapter( val context: Context) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
+class NotesAdapter(
+    val context: Context,
+    val result: RealmResults<Notes>
+) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return (ViewHolder(
@@ -20,7 +24,7 @@ class NotesAdapter( val context: Context) : RecyclerView.Adapter<NotesAdapter.Vi
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return result.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -35,7 +39,8 @@ class NotesAdapter( val context: Context) : RecyclerView.Adapter<NotesAdapter.Vi
         }
 
         fun bind() = with(itemView) {
-
+            tvSetTitle.text = result[adapterPosition]!!.title
+            tvSetContent.text = result[adapterPosition]!!.description
 
         }
 

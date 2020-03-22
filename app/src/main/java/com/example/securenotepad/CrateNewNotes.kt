@@ -7,6 +7,7 @@ import android.view.View
 import android.view.Window
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import io.realm.Realm
@@ -106,11 +107,11 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
 
         try {
             realm.beginTransaction()
-            val notes = Notes()
+            val notes = realm.createObject(Notes::class.java,2)
             notes.date = System.currentTimeMillis().toString()
             notes.description = edNotesDescription.text.toString().trim()
             notes.title = edNotesTitle.text.toString().trim()
-            notes.id = count!! + 1
+          //  notes.id = count!! + 1
             notes.lock = passLock
             notes.pin = check
             notes.password = password
@@ -122,6 +123,7 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
             finish()
 
         } catch (e: Exception) {
+            Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
             Log.e("Error", e.message!!)
         }
     }
