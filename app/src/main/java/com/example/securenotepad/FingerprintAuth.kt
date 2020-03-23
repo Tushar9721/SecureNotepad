@@ -2,15 +2,18 @@ package com.example.securenotepad
 
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_fingerprint_auth.*
 
 
-class FingerprintAuth : AppCompatActivity() {
+class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var biometricManager: BiometricManager
     private lateinit var biometricPrompt: BiometricPrompt
@@ -21,6 +24,7 @@ class FingerprintAuth : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fingerprint_auth)
 
+        init()
 
         biometricManager = BiometricManager.from(this)
         val executor = ContextCompat.getMainExecutor(this)
@@ -32,13 +36,13 @@ class FingerprintAuth : AppCompatActivity() {
 
             override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                 super.onAuthenticationError(errorCode, errString)
-                Toast.makeText(applicationContext,"Authentication error",Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Authentication error $errString",Toast.LENGTH_SHORT).show()
             }
 
             override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                 super.onAuthenticationSucceeded(result)
-                Toast.makeText(applicationContext,"Success",Toast.LENGTH_SHORT).show()
-
+                val snack = Snackbar.make(checkBoxFinger, "Fingerprint success", Snackbar.LENGTH_LONG)
+                snack.show()
             }
 
             override fun onAuthenticationFailed() {
@@ -55,26 +59,59 @@ class FingerprintAuth : AppCompatActivity() {
             .build()
 
 
-            biometricPrompt.authenticate(promptInfo)
-
-
 
     }
+
+    private fun init(){
+
+        clickListeners()
+
+    }
+
+    private fun clickListeners() {
+
+        checkBoxFinger.setOnClickListener(this)
+        verify.setOnClickListener(this)
+
+    }
+
+
+    override fun onClick(p0: View?) {
+
+        when(p0!!.id){
+
+            R.id.checkBoxFinger -> {
+
+                biometricPrompt.authenticate(promptInfo)
+
+            }
+
+            R.id.verify ->{
+
+
+
+            }
+
+        }
+
+    }
+
 
     private fun checkBiometricStatus(biometricManager: BiometricManager){
 
         when(biometricManager.canAuthenticate()){
             BiometricManager.BIOMETRIC_SUCCESS ->
-                Toast.makeText(this,"Success",Toast.LENGTH_SHORT).show()
+                Log.e("Fingerprint present","Success")
 
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
-                Toast.makeText(this,"No Hardware",Toast.LENGTH_SHORT).show()
+                Log.e("Fingerprint present","No Hardware")
 
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
-                Toast.makeText(this,"Hardware Unavailable",Toast.LENGTH_SHORT).show()
+                Log.e("Fingerprint present","Hardware Unavailable")
 
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED ->
-                Toast.makeText(this,"None Enrolled",Toast.LENGTH_SHORT).show()
+                Log.e("Fingerprint present","No fingerprint present")
+
         }
 
     }

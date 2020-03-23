@@ -5,9 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.Window
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.WindowManager
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import io.realm.Realm
@@ -16,10 +15,11 @@ import kotlinx.android.synthetic.main.activity_crate_new_notes.*
 class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
 
     private var check: Boolean = false
+    private var fingerPrint: Boolean = false
     private var passLock: Boolean = false
     private lateinit var realm: Realm
-    private var count: Int? = 0
     private var password: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,15 +72,7 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
 
             R.id.ivLockNote -> {
                 // locking important notes
-                if (!passLock) {
-                    ivLockNote.setImageResource(R.drawable.ic_lock)
-                    passLock = true
-                    passwordSet(p0)
-
-                } else {
-                    ivLockNote.setImageResource(R.drawable.ic_un_lock)
-                    passLock = false
-                }
+                passwordSet(p0)
             }
 
             R.id.ivPinNote -> {
@@ -107,13 +99,14 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
 
         try {
             realm.beginTransaction()
-            var nextId: Long = realm.where(Notes::class.java).count() + 1
+            val nextId: Long = realm.where(Notes::class.java).count() + 1
             val notes = realm.createObject(Notes::class.java, nextId)
             notes.date = System.currentTimeMillis().toString()
             notes.description = edNotesDescription.text.toString().trim()
             notes.title = edNotesTitle.text.toString().trim()
             notes.lock = passLock
             notes.pin = check
+            notes.fingerPrint = fingerPrint
             notes.password = password
 
             realm.copyToRealmOrUpdate(notes)
@@ -137,31 +130,39 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
     private fun passwordSet(v: View) {
 
         val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
-        dialog.window!!.setBackgroundDrawableResource(R.color.transparent)
         dialog.setContentView(R.layout.password_dialog)
-
-        val cancelDialog = dialog.findViewById<TextView>(R.id.cancelDialog)
+        dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT)
+        val cancelDialog = dialog.findViewById<ImageView>(R.id.cancelDialog)
         val donePassword = dialog.findViewById<TextView>(R.id.donePassword)
         val edPassword = dialog.findViewById<EditText>(R.id.edPassword)
+        val checkBox = dialog.findViewById<CheckBox>(R.id.checkBox)
 
-        cancelDialog.setOnClickListener {
-            passLock = true
-            dialog.dismiss()
-        }
 
         donePassword.setOnClickListener {
             passLock = false
+            fingerPrint = checkBox.isChecked
+
             if (edPassword.text.toString().trim().isNotEmpty()) {
                 password = edPassword.text.toString().trim()
                 dialog.dismiss()
+                passLock = true
                 whenClicked(v, "Password saved!!")
             } else {
-                whenClicked(v, "Password field is empty!!")
+                Toast.makeText(this,"Password field is empty!!",Toast.LENGTH_SHORT).show()
             }
         }
+
+
+
+
         dialog.show()
+
+
+        cancelDialog.setOnClickListener {
+            dialog.dismiss()
+        }
 
 
     }

@@ -42,6 +42,7 @@
         android:maxLines="10"
         android:padding="@dimen/dp_8"
         android:text="Content"
+        android:visibility="visible"
         android:textColor="@color/off_white"
         android:textSize="@dimen/sp_16" />
 

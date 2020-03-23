@@ -35,12 +35,7 @@ class NotesAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
-            itemView.relativeNotes.setOnClickListener {
 
-                val intent = Intent(context,FingerprintAuth::class.java)
-                context.startActivity(intent)
-
-            }
 
         }
 
@@ -48,14 +43,27 @@ class NotesAdapter(
             tvSetTitle.text = result[adapterPosition]!!.title
             tvSetContent.text = result[adapterPosition]!!.description
 
+            /** setting the pinned note */
             if(result[adapterPosition]!!.pin == true){
                 ivPinNoteView.visibility = View.VISIBLE
             }
 
+            /** setting the locked note */
             if(result[adapterPosition]!!.lock == true){
+                tvSetContent.visibility = View.INVISIBLE
+                ivLockNoteView.visibility = View.VISIBLE
+                itemView.relativeNotes.setOnClickListener {
+                    val intent = Intent(context,FingerprintAuth::class.java)
+                    intent.putExtra("title",result[adapterPosition]!!.title)
+                    intent.putExtra("description",result[adapterPosition]!!.description)
+                    intent.putExtra("password",result[adapterPosition]!!.password)
+                    
 
+
+                    context.startActivity(intent)
+
+                }
             }
-
         }
 
     }
