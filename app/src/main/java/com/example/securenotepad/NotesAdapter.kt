@@ -1,6 +1,7 @@
 package com.example.securenotepad
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,13 +35,26 @@ class NotesAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
+            itemView.relativeNotes.setOnClickListener {
 
+                val intent = Intent(context,FingerprintAuth::class.java)
+                context.startActivity(intent)
+
+            }
 
         }
 
         fun bind() = with(itemView) {
             tvSetTitle.text = result[adapterPosition]!!.title
             tvSetContent.text = result[adapterPosition]!!.description
+
+            if(result[adapterPosition]!!.pin == true){
+                ivPinNoteView.visibility = View.VISIBLE
+            }
+
+            if(result[adapterPosition]!!.lock == true){
+
+            }
 
         }
 

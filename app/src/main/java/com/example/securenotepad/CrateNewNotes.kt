@@ -107,23 +107,22 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
 
         try {
             realm.beginTransaction()
-            val notes = realm.createObject(Notes::class.java,2)
+            var nextId: Long = realm.where(Notes::class.java).count() + 1
+            val notes = realm.createObject(Notes::class.java, nextId)
             notes.date = System.currentTimeMillis().toString()
             notes.description = edNotesDescription.text.toString().trim()
             notes.title = edNotesTitle.text.toString().trim()
-          //  notes.id = count!! + 1
             notes.lock = passLock
             notes.pin = check
             notes.password = password
 
             realm.copyToRealmOrUpdate(notes)
             realm.commitTransaction()
-
-            whenClicked(p0, "Note saved!!")
+            Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show()
             finish()
 
         } catch (e: Exception) {
-            Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             Log.e("Error", e.message!!)
         }
     }
@@ -154,12 +153,11 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
 
         donePassword.setOnClickListener {
             passLock = false
-            if(!edPassword.text.toString().trim().isEmpty()) {
+            if (edPassword.text.toString().trim().isNotEmpty()) {
                 password = edPassword.text.toString().trim()
                 dialog.dismiss()
                 whenClicked(v, "Password saved!!")
-            }
-            else{
+            } else {
                 whenClicked(v, "Password field is empty!!")
             }
         }
