@@ -49,7 +49,7 @@
             app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/edPassword"
+                android:id="@+id/edPasswordCheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"

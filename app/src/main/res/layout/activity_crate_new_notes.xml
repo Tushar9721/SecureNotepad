@@ -47,7 +47,7 @@
             android:layout_toStartOf="@+id/ivPinNote"
             android:layout_toLeftOf="@+id/ivPinNote"
             android:padding="@dimen/dp_8"
-            android:src="@drawable/ic_un_lock" />
+            android:src="@drawable/ic_lock" />
 
 
     </RelativeLayout>

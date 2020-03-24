@@ -1,6 +1,8 @@
 package com.example.securenotepad
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -18,7 +20,10 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
     private lateinit var biometricManager: BiometricManager
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
-
+    private var title: String? = null
+    private var description: String? = null
+    private var password: String? = null
+    private var emailCount: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,25 +37,33 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
         checkBiometricStatus(biometricManager)
 
 
-        biometricPrompt = BiometricPrompt(this,executor,object : BiometricPrompt.AuthenticationCallback(){
+        biometricPrompt =
+            BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
 
-            override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
-                super.onAuthenticationError(errorCode, errString)
-                Toast.makeText(applicationContext, "Authentication error $errString",Toast.LENGTH_SHORT).show()
-            }
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    emailCount = emailCount!! + 1
+                    Toast.makeText(
+                        applicationContext,
+                        "Authentication error $errString",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-            override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                super.onAuthenticationSucceeded(result)
-                val snack = Snackbar.make(checkBoxFinger, "Fingerprint success", Snackbar.LENGTH_LONG)
-                snack.show()
-            }
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    val snack =
+                        Snackbar.make(checkBoxFinger, "Fingerprint success", Snackbar.LENGTH_LONG)
+                    snack.show()
+                }
 
-            override fun onAuthenticationFailed() {
-                super.onAuthenticationFailed()
-                Toast.makeText(applicationContext,"Authentication Fail",Toast.LENGTH_SHORT).show()
-
-            }
-        })
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    Toast.makeText(applicationContext, "Authentication Fail", Toast.LENGTH_SHORT)
+                        .show()
+                    emailCount = emailCount!! + 1
+                }
+            })
 
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Scan your finger print")
@@ -59,12 +72,20 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
             .build()
 
 
+    }
+
+    private fun init() {
+
+        setData()
+        clickListeners()
 
     }
 
-    private fun init(){
+    private fun setData() {
 
-        clickListeners()
+        title = intent.getStringExtra("title")
+        description = intent.getStringExtra("description")
+        password = intent.getStringExtra("password")
 
     }
 
@@ -72,22 +93,59 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
 
         checkBoxFinger.setOnClickListener(this)
         verify.setOnClickListener(this)
+        backHome.setOnClickListener(this)
 
     }
 
 
     override fun onClick(p0: View?) {
 
-        when(p0!!.id){
+        when (p0!!.id) {
+
+            R.id.backHome->{
+                finish()
+            }
 
             R.id.checkBoxFinger -> {
 
-                biometricPrompt.authenticate(promptInfo)
+                if (emailCount!! <= 3) {
+                    // sendEmail()
+                    biometricPrompt.authenticate(promptInfo)
+
+                } else {
+
+                    sendEmail()
+
+                }
+
 
             }
 
-            R.id.verify ->{
+            R.id.verify -> {
 
+                if (edPasswordCheck.text.toString().trim().isNotEmpty()) {
+                    if (emailCount!! <= 3) {
+
+                        if (edPasswordCheck.text.toString().trim() == password) {
+                            val snack =
+                                Snackbar.make(checkBoxFinger, "success", Snackbar.LENGTH_LONG)
+                            snack.show()
+                        } else {
+                            emailCount = emailCount!! + 1
+                            val snack =
+                                Snackbar.make(checkBoxFinger, "Not success", Snackbar.LENGTH_LONG)
+                            snack.show()
+
+                        }
+
+                    } else {
+
+                        sendEmail()
+
+                    }
+                }else{
+                    Toast.makeText(this,"Enter password",Toast.LENGTH_SHORT).show()
+                }
 
 
             }
@@ -96,27 +154,49 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    private fun sendEmail() {
 
-    private fun checkBiometricStatus(biometricManager: BiometricManager){
+        val TO = arrayOf("tushargarg313@gmail.com")
+        val CC = arrayOf("garg31@uwindsor.ca")
+        val emailIntent = Intent(Intent.ACTION_SEND)
 
-        when(biometricManager.canAuthenticate()){
+        emailIntent.data = Uri.parse("mailto:")
+        emailIntent.type = "text/plain"
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO)
+        emailIntent.putExtra(Intent.EXTRA_CC, CC)
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RE: SOme trying to read your node")
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here")
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."))
+            finish()
+            Log.i("Finished send email...", "Send ")
+        } catch (ex: android.content.ActivityNotFoundException) {
+            Toast.makeText(this, "There is no email client installed.", Toast.LENGTH_SHORT).show()
+        }
+
+
+    }
+
+
+    private fun checkBiometricStatus(biometricManager: BiometricManager) {
+
+        when (biometricManager.canAuthenticate()) {
             BiometricManager.BIOMETRIC_SUCCESS ->
-                Log.e("Fingerprint present","Success")
+                Log.e("Fingerprint present", "Success")
 
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
-                Log.e("Fingerprint present","No Hardware")
+                Log.e("Fingerprint present", "No Hardware")
 
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
-                Log.e("Fingerprint present","Hardware Unavailable")
+                Log.e("Fingerprint present", "Hardware Unavailable")
 
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED ->
-                Log.e("Fingerprint present","No fingerprint present")
+                Log.e("Fingerprint present", "No fingerprint present")
 
         }
 
     }
-
-
 
 
 }

@@ -50,15 +50,14 @@ class NotesAdapter(
 
             /** setting the locked note */
             if(result[adapterPosition]!!.lock == true){
-                tvSetContent.visibility = View.INVISIBLE
+                tvSetTitle.visibility = View.VISIBLE
                 ivLockNoteView.visibility = View.VISIBLE
+                tvSetContent.text = "This note is locked!!"
                 itemView.relativeNotes.setOnClickListener {
                     val intent = Intent(context,FingerprintAuth::class.java)
                     intent.putExtra("title",result[adapterPosition]!!.title)
                     intent.putExtra("description",result[adapterPosition]!!.description)
                     intent.putExtra("password",result[adapterPosition]!!.password)
-                    
-
 
                     context.startActivity(intent)
 
