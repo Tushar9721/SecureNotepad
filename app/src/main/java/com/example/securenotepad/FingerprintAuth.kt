@@ -1,8 +1,6 @@
 package com.example.securenotepad
 
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -102,22 +100,17 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
 
         when (p0!!.id) {
 
-            R.id.backHome->{
+            R.id.backHome -> {
                 finish()
             }
 
             R.id.checkBoxFinger -> {
 
                 if (emailCount!! <= 3) {
-                    // sendEmail()
                     biometricPrompt.authenticate(promptInfo)
-
                 } else {
-
                     sendEmail()
-
                 }
-
 
             }
 
@@ -125,7 +118,6 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
 
                 if (edPasswordCheck.text.toString().trim().isNotEmpty()) {
                     if (emailCount!! <= 3) {
-
                         if (edPasswordCheck.text.toString().trim() == password) {
                             val snack =
                                 Snackbar.make(checkBoxFinger, "success", Snackbar.LENGTH_LONG)
@@ -135,16 +127,13 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
                             val snack =
                                 Snackbar.make(checkBoxFinger, "Not success", Snackbar.LENGTH_LONG)
                             snack.show()
-
                         }
 
                     } else {
-
                         sendEmail()
-
                     }
-                }else{
-                    Toast.makeText(this,"Enter password",Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Enter password", Toast.LENGTH_SHORT).show()
                 }
 
 
@@ -156,25 +145,8 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
 
     private fun sendEmail() {
 
-        val TO = arrayOf("tushargarg313@gmail.com")
-        val CC = arrayOf("garg31@uwindsor.ca")
-        val emailIntent = Intent(Intent.ACTION_SEND)
-
-        emailIntent.data = Uri.parse("mailto:")
-        emailIntent.type = "text/plain"
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO)
-        emailIntent.putExtra(Intent.EXTRA_CC, CC)
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RE: SOme trying to read your node")
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here")
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."))
-            finish()
-            Log.i("Finished send email...", "Send ")
-        } catch (ex: android.content.ActivityNotFoundException) {
-            Toast.makeText(this, "There is no email client installed.", Toast.LENGTH_SHORT).show()
-        }
-
+        val javaApi = JavaMailAPI("tushargarg2112@gmail.com", "password", "abc")
+        javaApi.execute()
 
     }
 
