@@ -30,6 +30,7 @@
         android:fontFamily="@font/sen_bold"
         />
 
+    
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNotesList"

@@ -24,6 +24,7 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
     private var password: String? = null
     private var emailCount: Int? = 0
     private var enableFingerPrint: String? = null
+    private var sendEmailID: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,7 +106,7 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
         description = intent.getStringExtra("description")
         password = intent.getStringExtra("password")
         enableFingerPrint = intent.getStringExtra("finger")
-
+        sendEmailID = intent.getStringExtra("email")
     }
 
     private fun clickListeners() {
@@ -170,7 +171,7 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
 
     private fun sendEmail() {
 
-        val javaApi = JavaMailAPI("tushargarg2112@gmail.com", "password", "abc")
+        val javaApi = JavaMailAPI(sendEmailID!!, "password", "abc")
         javaApi.execute()
 
     }
