@@ -1,6 +1,7 @@
 package com.example.securenotepad
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -54,6 +55,8 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
                     val snack =
                         Snackbar.make(checkBoxFinger, "Fingerprint success", Snackbar.LENGTH_LONG)
                     snack.show()
+
+                    callActivity()
                 }
 
                 override fun onAuthenticationFailed() {
@@ -73,14 +76,22 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    private fun callActivity() {
+        val intent = Intent(this, CrateNewNotes::class.java)
+        intent.putExtra("title", title)
+        intent.putExtra("description", description)
+        intent.putExtra("data", "Yes")
+        finish()
+        startActivity(intent)
+    }
+
     private fun init() {
 
         setData()
 
-        if(enableFingerPrint == "true"){
+        if (enableFingerPrint == "true") {
             checkBoxFinger.visibility = View.VISIBLE
-        }
-        else{
+        } else {
             checkBoxFinger.visibility = View.GONE
         }
 
@@ -129,9 +140,13 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
                 if (edPasswordCheck.text.toString().trim().isNotEmpty()) {
                     if (emailCount!! <= 3) {
                         if (edPasswordCheck.text.toString().trim() == password) {
+
                             val snack =
                                 Snackbar.make(checkBoxFinger, "success", Snackbar.LENGTH_LONG)
                             snack.show()
+
+                            callActivity()
+
                         } else {
                             emailCount = emailCount!! + 1
                             val snack =
