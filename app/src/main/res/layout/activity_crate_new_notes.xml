@@ -19,6 +19,7 @@
             android:id="@+id/ivBackPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_click"
             android:padding="@dimen/dp_8"
             android:src="@drawable/ic_back_page" />
 
@@ -28,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:background="@drawable/button_click"
             android:padding="@dimen/dp_8"
             android:src="@drawable/ic_check_white" />
 
@@ -37,6 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/ivSubmitNote"
             android:layout_toLeftOf="@+id/ivSubmitNote"
+            android:background="@drawable/button_click"
             android:padding="@dimen/dp_8"
             android:src="@drawable/ic_pushpin_white" />
 
@@ -46,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/ivPinNote"
             android:layout_toLeftOf="@+id/ivPinNote"
+            android:background="@drawable/button_click"
             android:padding="@dimen/dp_8"
             android:src="@drawable/ic_lock" />
 

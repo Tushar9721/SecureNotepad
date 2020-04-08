@@ -22,6 +22,7 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
     private var description: String? = null
     private var password: String? = null
     private var emailCount: Int? = 0
+    private var enableFingerPrint: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +76,14 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
     private fun init() {
 
         setData()
+
+        if(enableFingerPrint == "true"){
+            checkBoxFinger.visibility = View.VISIBLE
+        }
+        else{
+            checkBoxFinger.visibility = View.GONE
+        }
+
         clickListeners()
 
     }
@@ -84,6 +93,7 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
         title = intent.getStringExtra("title")
         description = intent.getStringExtra("description")
         password = intent.getStringExtra("password")
+        enableFingerPrint = intent.getStringExtra("finger")
 
     }
 

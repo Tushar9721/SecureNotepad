@@ -8,12 +8,9 @@ import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
 
 
-class JavaMailAPI
-    (
-    private val mEmail: String, private val mSubject: String?, private val mMessage: String?
-) : AsyncTask<Void, Void, Void>() {
-    private var mSession: Session? = null
+class JavaMailAPI(private val mEmail: String, private val mSubject: String?, private val mMessage: String?) : AsyncTask<Void, Void, Void>() {
 
+    private var mSession: Session? = null
     private var mProgressDialog: ProgressDialog? = null
 
     override fun onPreExecute() {

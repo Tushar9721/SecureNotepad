@@ -36,6 +36,16 @@ class NotesAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
 
+                itemView.relativeNotes.setOnClickListener{
+                    val intent = Intent(context,CrateNewNotes::class.java)
+                    intent.putExtra("title",result[adapterPosition]!!.title)
+                    intent.putExtra("description",result[adapterPosition]!!.description)
+                    intent.putExtra("data","Yes")
+                    context.startActivity(intent)
+
+
+                }
+
 
         }
 
@@ -58,7 +68,12 @@ class NotesAdapter(
                     intent.putExtra("title",result[adapterPosition]!!.title)
                     intent.putExtra("description",result[adapterPosition]!!.description)
                     intent.putExtra("password",result[adapterPosition]!!.password)
-
+                    if(result[adapterPosition]!!.fingerPrint == true){
+                        intent.putExtra("finger","true")
+                    }
+                    else{
+                        intent.putExtra("finger","false")
+                    }
                     context.startActivity(intent)
 
                 }

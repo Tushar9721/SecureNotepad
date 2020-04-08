@@ -18,13 +18,16 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
     private var fingerPrint: Boolean = false
     private var passLock: Boolean = false
     private lateinit var realm: Realm
+    private var title: String? = null
+    private var description: String? = null
+    private var commingData: String? = null
     private var password: String? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crate_new_notes)
-
 
         //creating private initialize function
         init()
@@ -36,8 +39,28 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
         // performing clickListeners on buttons
         clickListeners()
         NoteApp()
+
+        setData()
+
         realm = Realm.getDefaultInstance()
 
+
+        if(commingData.equals("Yes")){
+
+            edNotesTitle.setText(title)
+            edNotesDescription.setText(description)
+
+
+        }
+
+
+    }
+
+    private fun setData() {
+
+        commingData = intent.getStringExtra("data")
+        title = intent.getStringExtra("title")
+        description = intent.getStringExtra("description")
 
     }
 

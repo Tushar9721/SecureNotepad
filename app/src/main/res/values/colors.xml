@@ -12,6 +12,8 @@
     <color name="transparent_black">#B23D3D3D</color>
     <color name="front_notes_background">#E6464646</color>
 
+
+
     <color name="yellowish_orange">#f5971f</color>
     <color name="cloudy_blue">#babdc0</color>
     <color name="cloud_blue">#edf0f2</color>
@@ -27,6 +29,9 @@
     <color name="blood_orange">#f75110</color>
     <color name="yellow_orange">#f5971f</color>
     <color name="black_80_opacity">#80000000</color>
+    
+    <color name="buttonPressed">#42495e</color>
+    <color name="buttonNotPressed">#E6252525</color>
 
     <color name="texttt">#35353a</color>
     <color name="dark_blue_1689fc">#1689fc</color>
