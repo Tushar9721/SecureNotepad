@@ -22,6 +22,7 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
     private var description: String? = null
     private var commingData: String? = null
     private var password: String? = null
+    private var emailID:String? = null
 
 
 
@@ -131,6 +132,7 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
             notes.pin = check
             notes.fingerPrint = fingerPrint
             notes.password = password
+            notes.email = emailID
 
             realm.copyToRealmOrUpdate(notes)
             realm.commitTransaction()
@@ -160,6 +162,7 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
         val cancelDialog = dialog.findViewById<ImageView>(R.id.cancelDialog)
         val donePassword = dialog.findViewById<TextView>(R.id.donePassword)
         val edPassword = dialog.findViewById<EditText>(R.id.edPassword)
+        val edEmail = dialog.findViewById<EditText>(R.id.edEmail)
         val checkBox = dialog.findViewById<CheckBox>(R.id.checkBox)
 
 
@@ -167,8 +170,9 @@ class CrateNewNotes : AppCompatActivity(), View.OnClickListener {
             passLock = false
             fingerPrint = checkBox.isChecked
 
-            if (edPassword.text.toString().trim().isNotEmpty()) {
+            if (edPassword.text.toString().trim().isNotEmpty() && edEmail.text.toString().trim().isNotEmpty()) {
                 password = edPassword.text.toString().trim()
+                emailID = edEmail.text.toString().trim()
                 dialog.dismiss()
                 passLock = true
                 whenClicked(v, "Password saved!!")

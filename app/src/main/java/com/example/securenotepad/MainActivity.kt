@@ -59,6 +59,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun clickListeners() {
 
         flAddNotes.setOnClickListener(this)
+        refresh.setOnRefreshListener {
+            rvNotesList.adapter!!.notifyDataSetChanged()
+            refresh.isRefreshing = false
+
+        }
 
     }
 

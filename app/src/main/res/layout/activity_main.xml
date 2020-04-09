@@ -30,14 +30,22 @@
         android:fontFamily="@font/sen_bold"
         />
 
-    
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvNotesList"
-        android:layout_below="@+id/textNotes"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/dp_10" />
+        android:layout_below="@+id/textNotes"
+        android:id="@+id/refresh"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNotesList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp_10" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -171,7 +171,7 @@ class FingerprintAuth : AppCompatActivity(), View.OnClickListener {
 
     private fun sendEmail() {
 
-        val javaApi = JavaMailAPI(sendEmailID!!, "password", "abc")
+        val javaApi = JavaMailAPI(sendEmailID!!, "Someone is opening your $title", "Some is trying to access your notes without your permission!!. Multiple times password has been made incorrect")
         javaApi.execute()
 
     }
